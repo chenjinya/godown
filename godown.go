@@ -46,7 +46,7 @@ func (r *HTTPFileReader) Read(p []byte) (n int, err error) {
 	return
 }
 
-func GoDown(url, filename string) (err error) {
+func Download(url, filename string) (err error) {
 	err = retry.Do(func() error {
 		defer func() {
 			if e := recover(); e != nil {
