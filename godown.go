@@ -9,7 +9,6 @@ import (
 
 	"github.com/avast/retry-go"
 	"github.com/chenjinya/loji"
-	"github.com/spf13/cast"
 )
 
 type HTTPFileReader struct {
@@ -33,11 +32,15 @@ func BeautifulSize(n int64) string {
 	if n >= 0 {
 		return fmt.Sprintf("%dB", n)
 	}
-	return cast.ToString(n)
+	return "0B"
 }
 func (r *HTTPFileReader) Read(p []byte) (n int, err error) {
 	n, err = r.Reader.Read(p)
 	r.Current += int64(n)
+
+	if r.Current > r.Total {
+		r.Current = r.Total
+	}
 
 	r.lo.Loading(fmt.Sprintf("下载 %s 进度 %.2f%% %s/%s",
 		r.Filename, float64(r.Current*10000/r.Total)/100,

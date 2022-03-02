@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-    godown.Download("http://www.google.com/robot.txt", "robot.txt")
+    godown.Download("http://www.google.com/robots.txt", "robots.txt")
 }
 
 ```
